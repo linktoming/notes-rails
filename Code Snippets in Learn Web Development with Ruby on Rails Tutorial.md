@@ -7,14 +7,15 @@
  
 1. Suppressing the ri and rdoc documentation in .gemrc
 
-    ```
-    install: --no-rdoc --no-ri
-    update: --no-rdoc --no-ri
-    ```
+```bash
+install: --no-rdoc --no-ri
+update: --no-rdoc --no-ri
+```
 
 ### Create a Rails app
-    
-    $ rails new app_name
+```bash
+$ rails new app_name
+``` 
     
 ### Gemfile Syntax
 
