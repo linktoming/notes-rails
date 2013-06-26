@@ -31,8 +31,6 @@
 ### Video Tutorials
 - [Learn Web Development with Ruby on Rails Tutorial(paid)](http://ruby.railstutorial.org/)
 
-***
-
 ## Learning Resources for Experienced Ruby Programmer
 ### Books
 - [Eloquent Ruby](http://www.amazon.com/gp/product/0321584104/)
