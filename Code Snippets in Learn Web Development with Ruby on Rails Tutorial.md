@@ -1,21 +1,21 @@
-### Set no documentation during gem installation
+### Set NO Documentation During Gem Installation
 1. Creating a gem configuration file.
 
     ```bash
     $ subl ~/.gemrc
-    ```
- 
-1. Suppressing the ri and rdoc documentation in .gemrc
+    ``` 
 
-```bash
-install: --no-rdoc --no-ri
-update: --no-rdoc --no-ri
-```
+1. Suppressing the ri and rdoc Documentation in .gemrc
+
+    ```bash
+    install: --no-rdoc --no-ri
+    update: --no-rdoc --no-ri
+    ```
 
 ### Create a Rails app
-```bash
-$ rails new app_name
-``` 
+
+    $ rails new app_name
+
     
 ### Gemfile Syntax
 
@@ -56,3 +56,31 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 ```
+###  Create and Use gemsets
+```bash
+$ rvm use 1.9.3@rails3tutorial2ndEd --create --default
+Using /Users/mhartl/.rvm/gems/ruby-1.9.3 with gemset rails3tutorial2ndEd
+```
+### Install the Gems
+```bash
+$ bundle update
+$ bundle install
+Fetching source index for https://rubygems.org/
+.
+.
+.
+```
+[Bundler Best Practices](http://viget.com/extend/bundler-best-practices) said the following:
+> 1. Always use bundle install  
+> 1. If you need to upgrade a dependency that Bundler is already managing, use bundle update <gem>.  
+> 1. Don't run bundle update unless you want all of your gems to be upgraded.
+
+### Start Local Web Server
+```bash
+$ rails server
+=> Booting WEBrick
+=> Rails application starting on http://0.0.0.0:3000
+=> Call with -d to detach
+=> Ctrl-C to shutdown server
+```
+
