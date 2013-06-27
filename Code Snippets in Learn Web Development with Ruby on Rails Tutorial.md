@@ -105,6 +105,8 @@ $ git push heroku master
 $ heroku open
 # rename a heroku app
 $ heroku rename railstutorial
+# run db migrate after push to heroku with db changes
+$ heroku run rake db:migrate
 ```
 
 ### Use Direct IP Address For Heroku 
@@ -176,4 +178,12 @@ created_at: "2011-11-03 02:01:31", updated_at: "2011-11-03 02:01:31">
 content: "Second micropost", user_id: 1, created_at: "2011-11-03 02:38:54",
 updated_at: "2011-11-03 02:38:54">]
 >> exit
+```
+### Class Inheritance
+```ruby
+class User < ActiveRecord::Base
+  .
+  .
+  .
+end
 ```
