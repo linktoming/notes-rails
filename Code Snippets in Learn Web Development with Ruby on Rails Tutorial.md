@@ -75,6 +75,15 @@ Fetching source index for https://rubygems.org/
 > 1. If you need to upgrade a dependency that Bundler is already managing, use bundle update <gem>.  
 > 1. Don't run bundle update unless you want all of your gems to be upgraded.
 
+### Install Gems only for Development and Testing
+```bash
+$ bundle install --without production
+```
+> The --without production option prevents the local installation of any production gems, 
+> which in this case is just pg. (Because the only gem we’ve added is restricted to a production 
+> environment, right now this command doesn’t actually install any additional local gems, but it’s 
+> needed to update Gemfile.lock since that’s what Heroku uses to infer the gem requirements of our application.)
+
 ### Start Local Web Server
 ```bash
 $ rails server
@@ -84,3 +93,12 @@ $ rails server
 => Ctrl-C to shutdown server
 ```
 
+### Heroku Realted Tasks
+```bash
+# login
+$ heroku login
+# create an application in heroku
+$ heroku create
+# push to heroku
+$ git push heroku master
+```
