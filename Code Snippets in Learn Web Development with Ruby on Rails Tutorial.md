@@ -13,9 +13,9 @@
     ```
 
 ### Create a Rails app
-
-    $ rails new app_name
-
+```bash
+$ rails new app_name
+```
     
 ### Gemfile Syntax
 
@@ -120,6 +120,60 @@ IdentityFile ~/.ssh/id_rsa
 port 22
 ```
 Before this, use the following command to detect which IP is working
-```
+```bash
 $ ssh -v git@heroku.com
+```
+### Use Scaffolding to Generate Data Modules
+```bash
+$ rails generate scaffold User name:string email:string
+$ rails generate scaffold Micropost content:string user_id:integer
+$ bundle exec rake db:migrate
+```
+### List the Tasks of Rake
+```bash
+# List only the database related taskes
+$ bundle exec rake -T db
+# List all the tasks
+$ bundle exec rake -T
+```
+
+### Add Validation for Data Models
+```ruby
+# app/models/micropost.rb
+class Micropost < ActiveRecord::Base
+  attr_accessible :content, :user_id
+  validates :content, :length => { :maximum => 140 }
+end
+```
+### Add Relationships Between Data Models
+```ruby
+# app/models/user.rb
+class User < ActiveRecord::Base
+  attr_accessible :email, :name
+  has_many :microposts
+end
+```
+
+```ruby
+# app/models/micropost.rb
+class Micropost < ActiveRecord::Base
+  attr_accessible :content, :user_id
+
+  belongs_to :user
+
+  validates :content, :length => { :maximum => 140 }
+end
+```
+### Play with Rails Console
+```bash
+$ rails console
+>> first_user = User.first
+=> #<User id: 1, name: "Michael Hartl", email: "michael@example.org",
+created_at: "2011-11-03 02:01:31", updated_at: "2011-11-03 02:01:31">
+>> first_user.microposts
+=> [#<Micropost id: 1, content: "First micropost!", user_id: 1, created_at:
+"2011-11-03 02:37:37", updated_at: "2011-11-03 02:37:37">, #<Micropost id: 2,
+content: "Second micropost", user_id: 1, created_at: "2011-11-03 02:38:54",
+updated_at: "2011-11-03 02:38:54">]
+>> exit
 ```
