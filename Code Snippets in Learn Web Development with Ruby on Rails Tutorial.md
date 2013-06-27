@@ -101,4 +101,6 @@ $ heroku login
 $ heroku create
 # push to heroku
 $ git push heroku master
+# open deployed heroku app in brower
+$ heroku open
 ```
