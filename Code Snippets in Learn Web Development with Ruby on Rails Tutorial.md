@@ -106,3 +106,20 @@ $ heroku open
 # rename a heroku app
 $ heroku rename railstutorial
 ```
+
+### Use Direct IP Address For Heroku 
+*This may be userful for Chinese users behind the GFW*
+
+Put the following lines in /etc/ssh/ssh_config
+```bash
+Host heroku.com
+User mingming
+Hostname 107.21.95.3
+PreferredAuthentications publickey
+IdentityFile ~/.ssh/id_rsa
+port 22
+```
+Before this, use the following command to detect which IP is working
+```
+$ ssh -v git@heroku.com
+```
