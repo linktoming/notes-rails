@@ -103,4 +103,6 @@ $ heroku create
 $ git push heroku master
 # open deployed heroku app in brower
 $ heroku open
+# rename a heroku app
+$ heroku rename railstutorial
 ```
