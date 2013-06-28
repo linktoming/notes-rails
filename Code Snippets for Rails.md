@@ -86,6 +86,9 @@ $ bundle install --without production
 > environment, right now this command doesn’t actually install any additional local gems, but it’s 
 > needed to update Gemfile.lock since that’s what Heroku uses to infer the gem requirements of our application.)
 
+> This is a remembered option which means next round we may just use *bundle install* and it'll include 
+> *--without production* automatically.
+
 ### Start Local Web Server
 ```bash
 $ rails server
@@ -109,8 +112,23 @@ $ heroku open
 $ heroku rename railstutorial
 # run db migrate after push to heroku with db changes
 $ heroku run rake db:migrate
+# check the logs in heroku
+$ heroku logs
+# check the state of the app’s dynos
+$ heroku ps
+=== web: `rails server -p $PORT -e $RAILS_ENV`
+web.1: up for 5s
+# scale heroku web dynos
+$ heroku ps:scale web=2
+# run rails console in heroku
+$ heroku run rails console
+Running `rails console` attached to terminal... up, run.2591
+Loading production environment (Rails 4.0.0)
+irb(main):001:0>
+# run rake tasks in heroku
+$ heroku run rake db:migrate
 ```
-
+More details on [Getting Started with Rails 4.x on Heroku](https://devcenter.heroku.com/articles/rails4-getting-started)
 ### Use Direct IP Address For Heroku 
 *This may be userful for Chinese users behind the GFW*
 
@@ -203,4 +221,34 @@ http://ruby.taobao.org
 ```bash
 # in Gemfile, replace the first line with
 source 'http://ruby.taobao.org/'
+```
+### Configure Rails to Use RSpec in Place of Test::Unit
+```bash
+$ rails generate rspec:install
+```
+### Generate Controller with Actions
+```bash
+#  use the option --no-test-framework to suppress the generation of the default RSpec tests,
+$ rails generate controller StaticPages home help --no-test-framework
+      create  app/controllers/static_pages_controller.rb
+       route  get "static_pages/help"
+       route  get "static_pages/home"
+      invoke  erb
+      create    app/views/static_pages
+      create    app/views/static_pages/home.html.erb
+      create    app/views/static_pages/help.html.erb
+      invoke  helper
+      create    app/helpers/static_pages_helper.rb
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/static_pages.js.coffee
+      invoke    scss
+      create      app/assets/stylesheets/static_pages.css.scss
+```
+### Undoing things
+```bash
+$ rails destroy controller FooBars baz quux
+$ rails destroy model Foo
+$ rake db:rollback
+$ rake db:migrate VERSION=0
 ```
