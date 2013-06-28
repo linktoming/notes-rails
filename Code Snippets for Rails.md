@@ -329,3 +329,30 @@ end
   </body>
 </html>
 ```
+### Use Guard to Automate Test
+Add Guard and growl to Gemfile
+```ruby
+# Gemfile
+group :development, :test do
+  gem 'sqlite3'
+  gem 'rspec-rails', '2.11.0'
+  gem 'guard-rspec', '1.2.1'
+end
+
+group :test do
+  gem 'capybara', '1.1.2'
+  gem 'rb-fsevent', '0.9.1', :require => false
+  gem 'growl', '1.0.3'
+end
+
+```
+
+Initialize Guard so that it works with RSpec and Use it
+```bash
+$ bundle exec guard init rspec
+Writing new Guardfile to /Users/mhartl/rails_projects/sample_app/Guardfile
+rspec guard added to Guardfile, feel free to edit it
+$ bundle exec guard
+```
+
+
