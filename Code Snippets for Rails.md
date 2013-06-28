@@ -261,3 +261,71 @@ $ rails generate integration_test static_pages
       
 $ bundle exec rspec spec/requests/static_pages_spec.rb
 ```
+### Sample of RSpecs
+```ruby
+# spec/requests/static_pages_spec.rb
+require 'spec_helper'
+
+describe "Static pages" do
+
+  describe "Home page" do
+
+    it "should have the h1 'Sample App'" do
+      visit '/static_pages/home'
+      page.should have_selector('h1', :text => 'Sample App')
+    end
+
+    it "should have the title 'Home'" do
+      visit '/static_pages/home'
+      page.should have_selector('title',
+                        :text => "Ruby on Rails Tutorial Sample App | Home")
+    end
+  end
+
+  describe "Help page" do
+
+    it "should have the h1 'Help'" do
+      visit '/static_pages/help'
+      page.should have_selector('h1', :text => 'Help')
+    end
+
+    it "should have the title 'Help'" do
+      visit '/static_pages/help'
+      page.should have_selector('title',
+                        :text => "Ruby on Rails Tutorial Sample App | Help")
+    end
+  end
+
+  describe "About page" do
+
+    it "should have the h1 'About Us'" do
+      visit '/static_pages/about'
+      page.should have_selector('h1', :text => 'About Us')
+    end
+
+    it "should have the title 'About Us'" do
+      visit '/static_pages/about'
+      page.should have_selector('title',
+                    :text => "Ruby on Rails Tutorial Sample App | About Us")
+    end
+  end
+end
+```
+### Rails' provide function in Erb
+```erb
+<% provide(:title,'Home')%>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ruby on Rails Tutorial Sample App | <%= yield(:title)%></title>
+  </head>
+  <body>
+    <h1>Sample App</h1>
+    <p>
+      This is the home page for the
+      <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
+      sample application.
+    </p>
+  </body>
+</html>
+```
