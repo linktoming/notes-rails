@@ -252,3 +252,12 @@ $ rails destroy model Foo
 $ rake db:rollback
 $ rake db:migrate VERSION=0
 ```
+
+### Generate and Run RSpec Integration Test
+```bash
+$ rails generate integration_test static_pages
+      invoke  rspec
+      create    spec/requests/static_pages_spec.rb
+      
+$ bundle exec rspec spec/requests/static_pages_spec.rb
+```
