@@ -15,6 +15,8 @@
 ### Create a Rails app
 ```bash
 $ rails new app_name
+# tell rails not to generate test directory associated with the default Test::Unit framework
+$ rails new sample_app --skip-test-unit
 ```
     
 ### Gemfile Syntax
@@ -186,4 +188,19 @@ class User < ActiveRecord::Base
   .
   .
 end
+```
+
+### Change Gem Source Location
+```bash
+$ gem sources --remove https://rubygems.org/
+$ gem sources -a http://ruby.taobao.org/
+$ gem sources -l
+*** CURRENT SOURCES ***
+
+http://ruby.taobao.org
+```
+### Change Bundle Source Location for Bundle Install
+```bash
+# in Gemfile, replace the first line with
+source 'http://ruby.taobao.org/'
 ```
