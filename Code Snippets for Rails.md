@@ -354,5 +354,97 @@ Writing new Guardfile to /Users/mhartl/rails_projects/sample_app/Guardfile
 rspec guard added to Guardfile, feel free to edit it
 $ bundle exec guard
 ```
+### Speeding up tests with Spork
+Add the spork gem dependency to the Gemfile
+```Gemfile
+source 'https://rubygems.org'
 
+gem 'rails', '3.2.13'
+.
+.
+.
+group :development, :test do
+  .
+  .
+  .
+  gem 'guard-spork', '1.2.0'
+  gem 'childprocess', '0.3.6'
+  gem 'spork', '0.9.2'
+end
+.
+.
+.
+```
+
+Then install Spork using bundle install
+```bash
+$ bundle install
+```
+
+Next, bootstrap the Spork configuration
+```bash
+$ bundle exec spork --bootstrap
+```
+Before running Spork, we can get a baseline for the testing overhead by timing our test suite as follows
+```bash
+$ time bundle exec rspec spec/requests/static_pages_spec.rb
+......
+
+6 examples, 0 failures
+
+real    0m8.633s
+user	0m7.240s
+sys	0m1.068s
+```
+Start a Spork server in a seperate terminal window in application root
+```bash
+$ spork
+```
+Run test and timing it with --drb option
+```bash
+$ time bundle exec rspec spec/requests/static_pages_spec.rb --drb
+......
+
+6 examples, 0 failures
+
+real    0m2.649s
+user	0m1.259s
+sys	0m0.258s
+```
+
+Configuring RSpec to automatically use Spork
+```bash
+# Adding --drb option to the .rspec file in the application’s root directory
+--colour
+--drb
+```
+Arrange Guard with Spork
+```bash
+$ guard init spork
+```
+Update Guardfile for Spork
+```bash
+require 'active_support/core_ext'
+
+guard 'spork', :rspec_env => { 'RAILS_ENV' => 'test' } do
+  watch('config/application.rb')
+  watch('config/environment.rb')
+  watch(%r{^config/environments/.+\.rb$})
+  watch(%r{^config/initializers/.+\.rb$})
+  watch('Gemfile')
+  watch('Gemfile.lock')
+  watch('spec/spec_helper.rb')
+  watch('test/test_helper.rb')
+  watch('spec/support/')
+end
+
+guard 'rspec', :version => 2, :all_after_pass => false, :cli => '--drb' do
+  .
+  .
+  .
+```
+With that configuration in place, we can start Guard and Spork at the same time with the guard command:
+```bash
+$ guard
+```
 
