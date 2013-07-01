@@ -97,37 +97,13 @@
 
 ## Miscellaneous
 - [Build Awesome Command-Line Applications in Ruby: Control Your Computer, Simplify Your Life](http://www.amazon.com/gp/product/1934356913/)
-
-    > 构建很牛的CLI Ruby应用
-
 - [The RSpec Book: Behaviour Driven Development with Rspec, Cucumber, and Friends](http://www.amazon.com/gp/product/1934356379/)
-
-    > Rspec的书
-
 - [The Cucumber Book: Behaviour-Driven Development for Testers and Developers](http://www.amazon.com/gp/product/1934356808/)
-
-    > Cucumber的书
-
 - [Everyday Scripting with Ruby: For Teams, Testers, and You](http://www.amazon.com/gp/product/0977616614/)
-
-    > Ruby日常脚本
-
 - [Wicked Cool Ruby Scripts: Useful Scripts That Solve Difficult Problems](http://www.amazon.com/gp/product/B005SNLI3W/)
-
-    > 巨酷Ruby脚本
-
 - [Ruby by Example: Concepts and Code](http://www.amazon.com/gp/product/1593271484/)
-
-    > Ruby代码实例
-
 - [Distributed Programming with Ruby](http://www.amazon.com/gp/product/0321638360/)
-
-    > Ruby分布式编程
-
 - [Scripted GUI Testing with Ruby](http://www.amazon.com/gp/product/1934356182/)
-
-    > Ruby GUI测试
-
 - [Presentation Summary “High Performance at Massive Scale: Lessons Learned at Facebook”](http://idleprocess.wordpress.com/2009/11/24/presentation-summary-high-performance-at-massive-scale-lessons-learned-at-facebook/)
 
 ## References
