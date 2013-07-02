@@ -151,21 +151,29 @@ $ rails generate scaffold User name:string email:string
 $ rails generate scaffold Micropost content:string user_id:integer
 $ bundle exec rake db:migrate
 ```
-### List the Tasks of Rake
-```bash
-# List only the database related taskes
-$ bundle exec rake -T db
-# List all the tasks
-$ bundle exec rake -T
-```
-
 ### Add Validation for Data Models
 ```ruby
 # app/models/micropost.rb
 class Micropost < ActiveRecord::Base
   attr_accessible :content, :user_id
+  
   validates :content, :length => { :maximum => 140 }
 end
+
+class User < ActiveRecord::Base 
+  attr_accessible :name, :email
+
+  validates :name, presence: true, length: { maximum: 100 }
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, length: { maximum: 100 }, 
+      format: { with: VALID_EMAIL_REGEX }, 
+      uniqueness:  { case_sensitive: false }
+end
+```
+Show Error Messages
+```ruby
+>> user.errors.full_messages
+=> ["Name can't be blank"]
 ```
 ### Add Relationships Between Data Models
 ```ruby
@@ -186,6 +194,49 @@ class Micropost < ActiveRecord::Base
   validates :content, :length => { :maximum => 140 }
 end
 ```
+### Generate Controller with Actions
+```bash
+#  use the option --no-test-framework to suppress the generation of the default RSpec tests,
+$ rails generate controller StaticPages home help --no-test-framework
+      create  app/controllers/static_pages_controller.rb
+       route  get "static_pages/help"
+       route  get "static_pages/home"
+      invoke  erb
+      create    app/views/static_pages
+      create    app/views/static_pages/home.html.erb
+      create    app/views/static_pages/help.html.erb
+      invoke  helper
+      create    app/helpers/static_pages_helper.rb
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/static_pages.js.coffee
+      invoke    scss
+      create      app/assets/stylesheets/static_pages.css.scss
+```
+### Generarte Models with Attributes
+```bash
+$ rails generate model User name:string email:string is_admin:boolean
+```
+### Use Migration to Modify Model/DB Structure
+Generate the migration first
+```bash
+$ rails generate migration add_index_to_users_email
+```
+Manually add the changes to db/migrate/[timestamp]_add_index_to_users_email.rb
+```ruby
+class AddIndexToUsersEmail < ActiveRecord::Migration
+  def change
+    add_index :users, :email, unique: true
+  end
+end
+```
+### Undoing things
+```bash
+$ rails destroy controller FooBars baz quux
+$ rails destroy model Foo
+$ rake db:rollback
+$ rake db:migrate VERSION=0
+```
 ### Play with Rails Console
 ```bash
 $ rails console
@@ -198,6 +249,18 @@ created_at: "2011-11-03 02:01:31", updated_at: "2011-11-03 02:01:31">
 content: "Second micropost", user_id: 1, created_at: "2011-11-03 02:38:54",
 updated_at: "2011-11-03 02:38:54">]
 >> exit
+
+$ rails console --sandbox
+Loading development environment in sandbox
+Any modifications you make will be rolled back on exit
+>> 
+```
+### List the Tasks of Rake
+```bash
+# List only the database related taskes
+$ bundle exec rake -T db
+# List all the tasks
+$ bundle exec rake -T
 ```
 ### Class Inheritance
 ```ruby
@@ -226,33 +289,6 @@ source 'http://ruby.taobao.org/'
 ```bash
 $ rails generate rspec:install
 ```
-### Generate Controller with Actions
-```bash
-#  use the option --no-test-framework to suppress the generation of the default RSpec tests,
-$ rails generate controller StaticPages home help --no-test-framework
-      create  app/controllers/static_pages_controller.rb
-       route  get "static_pages/help"
-       route  get "static_pages/home"
-      invoke  erb
-      create    app/views/static_pages
-      create    app/views/static_pages/home.html.erb
-      create    app/views/static_pages/help.html.erb
-      invoke  helper
-      create    app/helpers/static_pages_helper.rb
-      invoke  assets
-      invoke    coffee
-      create      app/assets/javascripts/static_pages.js.coffee
-      invoke    scss
-      create      app/assets/stylesheets/static_pages.css.scss
-```
-### Undoing things
-```bash
-$ rails destroy controller FooBars baz quux
-$ rails destroy model Foo
-$ rake db:rollback
-$ rake db:migrate VERSION=0
-```
-
 ### Generate and Run RSpec Integration Test
 ```bash
 $ rails generate integration_test static_pages
@@ -447,4 +483,102 @@ With that configuration in place, we can start Guard and Spork at the same time 
 ```bash
 $ guard
 ```
+### Use Active Record to CRUD Records
+```ruby
+>> User.new
+=> #<User id: nil, name: nil, email: nil, created_at: nil, updated_at: nil>
 
+>> user = User.new(name: "Michael Hartl", email: "mhartl@example.com")
+=> #<User id: nil, name: "Michael Hartl", email: "mhartl@example.com",
+created_at: nil, updated_at: nil>
+
+>> user.save
+=> true
+
+>> user
+=> #<User id: 1, name: "Michael Hartl", email: "mhartl@example.com",
+created_at: "2011-12-05 00:57:46", updated_at: "2011-12-05 00:57:46">
+
+>> user.name
+=> "Michael Hartl"
+>> user.email
+=> "mhartl@example.com"
+>> user.updated_at
+=> Tue, 05 Dec 2011 00:57:46 UTC +00:00
+
+>> User.create(name: "A Nother", email: "another@example.org")
+#<User id: 2, name: "A Nother", email: "another@example.org", created_at:
+"2011-12-05 01:05:24", updated_at: "2011-12-05 01:05:24">
+>> foo = User.create(name: "Foo", email: "foo@bar.com")
+#<User id: 3, name: "Foo", email: "foo@bar.com", created_at: "2011-12-05
+01:05:42", updated_at: "2011-12-05 01:05:42">
+
+>> foo.destroy
+=> #<User id: 3, name: "Foo", email: "foo@bar.com", created_at: "2011-12-05
+01:05:42", updated_at: "2011-12-05 01:05:42">
+
+# the destroies object is still in memery
+>> foo
+=> #<User id: 3, name: "Foo", email: "foo@bar.com", created_at: "2011-12-05
+01:05:42", updated_at: "2011-12-05 01:05:42">
+
+>> User.find(1)
+=> #<User id: 1, name: "Michael Hartl", email: "mhartl@example.com",
+created_at: "2011-12-05 00:57:46", updated_at: "2011-12-05 00:57:46">
+
+>> User.find_by_email("mhartl@example.com")
+=> #<User id: 1, name: "Michael Hartl", email: "mhartl@example.com",
+created_at: "2011-12-05 00:57:46", updated_at: "2011-12-05 00:57:46">
+
+>> User.first
+=> #<User id: 1, name: "Michael Hartl", email: "mhartl@example.com",
+created_at: "2011-12-05 00:57:46", updated_at: "2011-12-05 00:57:46">
+
+>> User.all
+=> [#<User id: 1, name: "Michael Hartl", email: "mhartl@example.com",
+created_at: "2011-12-05 00:57:46", updated_at: "2011-12-05 00:57:46">,
+#<User id: 2, name: "A Nother", email: "another@example.org", created_at:
+"2011-12-05 01:05:24", updated_at: "2011-12-05 01:05:24">]
+
+# Updating user objects
+>> user           # Just a reminder about our user's attributes
+=> #<User id: 1, name: "Michael Hartl", email: "mhartl@example.com",
+created_at: "2011-12-05 00:57:46", updated_at: "2011-12-05 00:57:46">
+>> user.email = "mhartl@example.net"
+=> "mhartl@example.net"
+>> user.save
+=> true
+
+>> user.update_attributes(name: "The Dude", email: "dude@abides.org")
+=> true
+>> user.name
+=> "The Dude"
+>> user.email
+=> "dude@abides.org"
+```
+### Rake Tasks for Preparing your Application for Testing
+```bash
+# Recreate the test database from the current environment's database schema
+$ rake db:test:clone    
+# Recreate the test database from the development structure
+$ rake db:test:clone_structure	
+# Recreate the test database from the current schema.rb
+$ rake db:test:load	
+# Check for pending migrations and load the test schema
+$ rake db:test:prepare	
+# Empty the test database.
+$ rake db:test:purge	
+```
+### %w[] technique for making arrays of strings,
+```ruby
+>> %w[foo bar baz]
+=> ["foo", "bar", "baz"]
+>> addresses = %w[user@foo.COM THE_US-ER@foo.bar.org first.last@foo.jp]
+=> ["user@foo.COM", "THE_US-ER@foo.bar.org", "first.last@foo.jp"]
+>> addresses.each do |address|
+?>   puts address
+>> end
+user@foo.COM
+THE_US-ER@foo.bar.org
+first.last@foo.jp
+```
