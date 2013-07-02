@@ -245,6 +245,23 @@ Finally, run the migration command
 ```bash
 $ rake db:migrate
 ```
+
+Add collumn to table
+```bash
+# it’s convenient to end the name with _to_users, since in this case Rails automatically constructs 
+# a migration to add columns to the users table. Moreover, by including the second argument, we’ve 
+# given Rails enough information to construct the entire migration for us.
+$ rails generate migration add_password_digest_to_users password_digest:string
+```
+Above command will generate the migration file automatically
+```ruby
+# db/migrate/[ts]_add_password_digest_to_users.rb
+class AddPasswordDigestToUsers < ActiveRecord::Migration
+  def change
+    add_column :users, :password_digest, :string
+  end
+end
+```
 ### Undoing things
 ```bash
 $ rails destroy controller FooBars baz quux
