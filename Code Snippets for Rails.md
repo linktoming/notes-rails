@@ -194,6 +194,17 @@ class Micropost < ActiveRecord::Base
   validates :content, :length => { :maximum => 140 }
 end
 ```
+### Use Active Record Callbacks
+```ruby
+class User < ActiveRecord::Base 
+  attr_accessible :name, :email
+
+  before_save { |user| user.email = email.downcase }
+  .
+  .
+  .
+end
+```
 ### Generate Controller with Actions
 ```bash
 #  use the option --no-test-framework to suppress the generation of the default RSpec tests,
@@ -222,13 +233,17 @@ Generate the migration first
 ```bash
 $ rails generate migration add_index_to_users_email
 ```
-Manually add the changes to db/migrate/[timestamp]_add_index_to_users_email.rb
+Then manually add the changes to db/migrate/[timestamp]_add_index_to_users_email.rb
 ```ruby
 class AddIndexToUsersEmail < ActiveRecord::Migration
   def change
     add_index :users, :email, unique: true
   end
 end
+```
+Finally, run the migration command
+```bash
+$ rake db:migrate
 ```
 ### Undoing things
 ```bash
