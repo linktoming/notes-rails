@@ -13,3 +13,8 @@ Run *annotate* from time to time to update the annotation in model file
 ```bash
 $ annotate
 ```
+### Use *bcrypt* to Encrypt Password
+```ruby
+# in Gemfile
+gem 'bcrypt-ruby'
+```
