@@ -603,6 +603,10 @@ created_at: "2011-12-05 00:57:46", updated_at: "2011-12-05 00:57:46">
 => "The Dude"
 >> user.email
 => "dude@abides.org"
+
+$ rails console
+>> User.count
+=> 0
 ```
 ### Rake Tasks for Preparing your Application for Testing
 ```bash
