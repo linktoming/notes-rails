@@ -274,6 +274,7 @@ $ rails destroy controller FooBars baz quux
 $ rails destroy model Foo
 $ rake db:rollback
 $ rake db:migrate VERSION=0
+$ rake db:reset
 ```
 ### Play with Rails Console
 ```bash
@@ -305,6 +306,9 @@ $ rails console test
 $ bundle exec rake -T db
 # List all the tasks
 $ bundle exec rake -T
+
+# Rake task for reset the database
+$ rake db:reset
 ```
 ### Class Inheritance
 ```ruby
