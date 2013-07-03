@@ -96,6 +96,12 @@ $ rails server
 => Rails application starting on http://0.0.0.0:3000
 => Call with -d to detach
 => Ctrl-C to shutdown server
+
+# Start the server in production mode
+$ rails server --environment production
+
+# Before start the server in production mode, we may need to setup the database for production first
+$ rake db:migrate RAILS_ENV=production
 ```
 
 ### Heroku Realted Tasks
@@ -271,6 +277,7 @@ $ rake db:migrate VERSION=0
 ```
 ### Play with Rails Console
 ```bash
+# the default rails environment is development
 $ rails console
 >> first_user = User.first
 => #<User id: 1, name: "Michael Hartl", email: "michael@example.org",
@@ -282,11 +289,16 @@ content: "Second micropost", user_id: 1, created_at: "2011-11-03 02:38:54",
 updated_at: "2011-11-03 02:38:54">]
 >> exit
 
+# use the sandbox environment in which any changes will be rollback after the session
 $ rails console --sandbox
 Loading development environment in sandbox
 Any modifications you make will be rolled back on exit
 >> 
+
+# use test evironment for the console
+$ rails console test
 ```
+
 ### List the Tasks of Rake
 ```bash
 # List only the database related taskes
@@ -613,4 +625,51 @@ $ rake db:test:purge
 user@foo.COM
 THE_US-ER@foo.bar.org
 first.last@foo.jp
+```
+
+### Add Debug Information to the Site Layout
+Add debug info in app/views/layouts/application.html.erb
+```erb
+<!DOCTYPE html>
+<html>
+  .
+  .
+  .
+  <body>
+    <%= render 'layouts/header' %>
+    <div class="container">
+      <%= yield %>
+      <%= render 'layouts/footer' %>
+      <%= debug(params) if Rails.env.development? %>
+    </div>
+  </body>
+</html>
+```
+to make the debug info prettier, add the css to
+app/assets/stylesheets/custom.css.scss
+```scss
+@import "bootstrap";
+
+/* mixins, variables, etc. */
+
+$grayMediumLight: #eaeaea;
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.
+.
+.
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
 ```
