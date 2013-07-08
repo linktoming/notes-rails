@@ -1,7 +1,10 @@
 ### List of Rich Text Editors
 1. [CKEditor](http://ckeditor.com/)
     - Feature rich yet with basic version
-    - Easy Integrated with Rails <https://github.com/tsechingho/ckeditor-rails> <https://github.com/galetahub/ckeditor>
+    - Easy Integrated with Rails
+        - <https://github.com/tsechingho/ckeditor-rails> 
+        - <https://github.com/galetahub/ckeditor>
+    - Integration without gem: <http://4loc.wordpress.com/2011/06/29/ckeditor-and-rails/>
 1. [bootstrap-wysihtml5](http://jhollingworth.github.io/bootstrap-wysihtml5/)
     - Bootstrap Plugin
 1. [jwysiwig](https://github.com/jwysiwyg/jwysiwyg)
@@ -25,5 +28,5 @@
 
 
 ### References
-<http://stackoverflow.com/questions/5885006/rails-3-and-rich-text-editor/>
+<http://stackoverflow.com/questions/5885006/rails-3-and-rich-text-editor/>  
 <https://github.com/jejacks0n/mercury#the-story>
