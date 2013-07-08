@@ -1,3 +1,4 @@
 - [Catalogy on Ruby Toolbox](https://www.ruby-toolbox.com/categories/rails_admin_interfaces)  
 - [Comparison of Active Admin with Rails Admin](http://batsov.com/articles/2011/11/20/admin-interfaces-for-rails-apps-railsadmin-vs-activeadmin/)  
+- [Rails Admin vs. ActiveAdmin [closed]](http://stackoverflow.com/questions/6542075/rails-admin-vs-activeadmin)
 - [RailsCasts #284 Active Admin](http://railscasts.com/episodes/284-active-admin)
