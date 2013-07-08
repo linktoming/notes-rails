@@ -5,6 +5,17 @@
         - <https://github.com/tsechingho/ckeditor-rails> 
         - <https://github.com/galetahub/ckeditor>
     - Integration without gem: <http://4loc.wordpress.com/2011/06/29/ckeditor-and-rails/>
+    - Sample app/assets/javascripts/ckeditor/config.js.coffee
+
+        ```coffeescript
+        CKEDITOR.editorConfig = (config) ->
+        config.toolbar = 'Basic'
+        config.toolbar_Basic =[['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink','-']]
+        config.uiColor = "#eceff6"
+        config.removePlugins = 'elementspath'
+        # config.resize_enabled = false
+        true
+        ```
 1. [bootstrap-wysihtml5](http://jhollingworth.github.io/bootstrap-wysihtml5/)
     - Bootstrap Plugin
 1. [jwysiwig](https://github.com/jwysiwyg/jwysiwyg)
