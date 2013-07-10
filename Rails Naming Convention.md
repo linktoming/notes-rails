@@ -4,50 +4,50 @@
 > 
 > Ruby uses the first character of the name to help it determine it’s intended use.
 > 
-> Local Variables
+> Local Variables  
 > underscores rather than camelBack for multiple word names, e.g. mileage, variable_xyz
 > 
-> Instance Variables
+> Instance Variables  
 > lowercase letter should be used after the @, e.g. @colour 
 > 
-> Instance Methods
+> Instance Methods  
 > letters, e.g. paint, close_the_door
 > 
-> Class Variables
+> Class Variables  
 > letters, e.g. @@colour
 > 
-> Constant 
+> Constant   
 > convention named using all uppercase letters and underscores between words, e.g. THIS_IS_A_CONSTANT
 > 
-> Class and Module 
+> Class and Module   
 >  module Encryption, class MixedCase
 > 
-> Global Variables
+> Global Variables  
 > Starts with a dollar ($) sign followed by other characters, e.g. $global
 > 
 > ## Rails Naming Convention
 > 
 > Rails use the same naming convention as Ruby with some additions:
 > 
-> Variable 
+> Variable   
 > order_amount, total
 > 
-> Class and Module 
+> Class and Module   
 > InvoiceItem
 > 
-> Database Table
+> Database Table  
 > plural, e.g. invoice_items, orders
 > 
-> Model 
+> Model   
 > multiple capitalised words, the table name is assumed to have underscores between these words.
 > 
-> Controller
+> Controller  
 > /app/controllers directory.
 > 
-> Files, Directories and other pluralization
+> Files, Directories and other pluralization  
 > other conventions will apply:
 > 
-> directory
+> directory  
 > Rails will look for view template files for the controller in the app/views/orders directory
 > app/views/layouts directory
 > be created in the /test/functional directory
